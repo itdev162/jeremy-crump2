@@ -19,8 +19,17 @@ namespace API.Controllers
 
         private readonly DataContext context;
         
-        public PostsController(IMediator mediator) => this.mediator = mediator;
+        public PostsController(IMediator mediator, DataContext context)
+        {
+            this.mediator = mediator;
+            this.context = context;
+        } 
         
+        public async Task<ActionResult<List<Post>>> List()
+        {
+            return await this.mediator.Send(new List.Query());
+        }
+
         /// <summary>
         ///  GET api/posts
         /// </summary>
@@ -41,11 +50,6 @@ namespace API.Controllers
         public ActionResult<Post> GetById(Guid id)
         {
             return this.context.Posts.Find(id);
-        }
-
-        public async Task<ActionResult<List<Post>>> List()
-        {
-            return await this.mediator.Send(new List.Query());
         }
 
     }
