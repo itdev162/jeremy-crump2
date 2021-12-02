@@ -76,7 +76,7 @@ namespace API.Controllers
                 throw new Exception("Could not find post");
             }
 
-            //Update the post properties with request values, if present.
+            //Update the post properties with request values, if present
 
             post.Title = request.Title != null ? request.Title : post.Title;
             post.Body = request.Body != null ? request.Body : post.Body;
