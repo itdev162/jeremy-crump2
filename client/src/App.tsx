@@ -31,6 +31,20 @@ class App extends React.Component {
     });
   }
 
+  deletePost = post => {
+    axios
+    .delete(`http://localhost:5000/api/posts/${post.id}`)
+    .then(response => {
+      const newPosts = this.state.posts.filter(p => p.id !== post.id);
+      this.setState({
+        posts: [...newPosts]
+      });
+    })
+    .catch(error => {
+      console.error(`Error deleting post: ${error}`);
+    })
+  }
+
   render() {
     const { posts, post } = this.state;
 
@@ -43,7 +57,7 @@ class App extends React.Component {
           <main className='App-content'>
             <Switch>
               <Route exact path="/">
-                <PostList posts={posts} clickPost={this.viewPost} />
+                <PostList posts={posts} clickPost={this.viewPost} deletePost={this.deletePost} />
               </Route>
               <Route path="/posts/:postId">
                 <Post post={post} />
