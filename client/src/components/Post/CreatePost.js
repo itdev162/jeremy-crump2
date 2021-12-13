@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
@@ -27,7 +27,7 @@ const CreatePost = ({ onPostCreated }) => {
             console.log('Title and body are required');
         } else {
             const newPost = {
-                id: uuid.v4(),
+                id: uuid,
                 title: title,
                 body: body,
                 date: moment().toISOString()
